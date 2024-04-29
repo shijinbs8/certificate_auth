@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Employee</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+
+</head>
+<body>
+  <div>
+    <h2><b>Employee Details</b></h2>
+
+    {% if employee %}
+      <div>
+        {% if employee.image %}
+          <img src="{{ employee.image.url }}" alt="Employee Image">
+        {% endif %}
+        
+      </div>
+      <div>
+        <p>Name: {{ employee.name }}</p>
+        <p>Certificate ID: {{ employee.certificate_id }}</p>
+        <p>Department Name: {{ employee.department_name }}</p>
+        <p>Position: {{ employee.position }}</p>
+        <p>Joining Date: {{ employee.joining_date }}</p>
+        <p>Leaving Date: {{ employee.leaving_date }}</p>
+        <p>Worked In: {{ employee.worked_in }}</p>
+        <p>TL Review:
+            <span class="review-stars">
+                {% for _ in employee.tl_review %}
+                    <i class="fas fa-star"></i>
+                {% endfor %}
+            </span>
+        </p>
+        <p>DH Review:
+            <span class="review-stars">
+                {% for _ in employee.dh_review %}
+                    <i class="fas fa-star"></i>
+                {% endfor %}
+            </span>
+        </p>
+        <p>Feedback: {{ employee.feedback }}</p>
+
+        <h3>Skills</h3>
+        <ul>
+          {% for skill in employee.skills.all %}
+            <li>{{ skill.skill }} - Rating: {{ skill.rating }}</li>
+          {% endfor %}
+        </ul>
+        <div class="review">
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+        </div>
+      </div>
+    {% else %}
+      <p>Employee not found.</p>
+    {% endif %}
+  </div>
+  <script>
+    // Example JavaScript code to set review rating dynamically
+    var rating = 4; // Get the review rating from your data
+
+    var reviewElement = document.querySelector('.review');
+    reviewElement.classList.add('rating-' + rating);
+</script>
+</body>
+</html>

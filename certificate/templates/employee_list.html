@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee List</title>
+</head>
+<body>
+    <h1>List of Employees</h1>
+    <ul>
+        {% for employee in employees %}
+        <li>{{ employee.name }} - {{ employee.department_name }} - {{ employee.skill }} (Rating: {{ employee.team_rating }})</li>
+        {% empty %}
+        <li>No employees found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

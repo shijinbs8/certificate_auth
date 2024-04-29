@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Employee</title>
+</head>
+<style>
+    .rating {
+        unicode-bidi: bidi-override;
+        direction: rtl;
+        font-size: 18px;
+    }
+    .rating > span {
+        display: inline-block;
+        position: relative;
+        width: 1.1em;
+        color: gray;
+    }
+    .rating > span.filled {
+        color: gold;
+    }
+</style>
+
+<body>
+    <h1>Search for an Employee by Certificate ID</h1>
+    <form method="get" action="">
+        <label for="certificate_id">Certificate ID:</label>
+        <input type="text" id="certificate_id" name="certificate_id" required>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if employee %}
+        <h2>Found Employee:</h2>
+        {% if employee.image %}
+            <img src="{{ employee.image.url }}" alt="Employee Image">
+        {% endif %}
+        <p>Name: {{ employee.name }}</p>
+        <p>Department: {{ employee.department_name }}</p>
+        <p>Position: {{ employee.position }}</p>
+        <p>Joining Date: {{ employee.joining_date }}</p>
+        <p>Leaving Date: {{ employee.leaving_date }}</p>
+        <p>Worked In: {{ employee.worked_in }}</p>
+        <p>Team Leader Review: {{ employee.tl_review }}</p>
+        <p>Department Head Review: {{ employee.dh_review }}</p>
+        <p>Feedback: {{ employee.feedback }}</p>
+        {% if skills %}
+            <h3>Skills:</h3>
+            <ul>
+                {% for skill in skills %}
+                    <li>{{ skill.skill }} - Rating: {{ skill.rating }}</li>
+                    <div class="rating">
+                    <span class="{% if skill.rating >= 1 %}filled{% endif %}">&#9733;</span>
+                    <span class="{% if skill.rating >= 2 %}filled{% endif %}">&#9733;</span>
+                    <span class="{% if skill.rating >= 3 %}filled{% endif %}">&#9733;</span>
+                    <span class="{% if skill.rating >= 4 %}filled{% endif %}">&#9733;</span>
+                    <span class="{% if skill.rating >= 5 %}filled{% endif %}">&#9733;</span>
+                </div>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No skills recorded for this employee.</p>
+        {% endif %}
+    {% else %}
+        <p>No employee found with that certificate ID.</p>
+    {% endif %}
+</body>
+</html>
+

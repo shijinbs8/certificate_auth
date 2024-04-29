@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Employee</title>
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="date"],
+textarea,
+input[type="file"],
+input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+</style>
+<body>
+    <h1>Edit Employee</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" value="{{ employee.name }}"><br>
+        
+        <label for="certificate_id">Certificate ID:</label><br>
+        <input type="text" id="certificate_id" name="certificate_id" value="{{ employee.certificate_id }}"><br>
+        
+        <label for="department_name">Department:</label><br>
+        <input type="text" id="department_name" name="department_name" value="{{ employee.department_name }}"><br>
+        
+        <label for="position">Position:</label><br>
+        <input type="text" id="position" name="position" value="{{ employee.position }}"><br>
+        
+        <label for="joining_date">Joining Date:</label><br>
+        <input type="date" id="joining_date" name="joining_date" value="{{ employee.joining_date }}"><br>
+        
+        <label for="leaving_date">Leaving Date:</label><br>
+        <input type="date" id="leaving_date" name="leaving_date" value="{{ employee.leaving_date }}"><br>
+        
+        <label for="worked_in">Worked In:</label><br>
+        <input type="text" id="worked_in" name="worked_in" value="{{ employee.worked_in }}"><br>
+        
+        <label for="tl_review">Team Lead Review:</label><br>
+        <textarea id="tl_review" name="tl_review">{{ employee.tl_review }}</textarea><br>
+        
+        <label for="dh_review">Department Head Review:</label><br>
+        <textarea id="dh_review" name="dh_review">{{ employee.dh_review }}</textarea><br>
+        
+        <label for="feedback">Feedback:</label><br>
+        <textarea id="feedback" name="feedback">{{ employee.feedback }}</textarea><br>
+        
+        <!-- Display the existing image if it exists -->
+        {% if employee.image %}
+        <img src="{{ employee.image.url }}" alt="Employee Image"><br>
+        {% endif %}
+        
+        <label for="image">Update Image:</label><br>
+        <input type="file" id="image" name="image"><br>
+        
+        <label for="skills">Skills:</label><br>
+        {% for skill in employee.skills.all %}
+        <input type="text" name="skills" value="{{ skill.skill }}"><br>
+        <label for="ratings">Rating:</label><br>
+        <input type="number" name="ratings" value="{{ skill.rating }}"><br>
+        {% endfor %}
+        
+        <input type="submit" value="Save">
+    </form>
+</body>
+</html>

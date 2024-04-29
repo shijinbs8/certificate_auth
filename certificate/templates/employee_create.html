@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Employee</title>
+</head>
+<body>
+    <h1>Create New Employee</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="certificate_id">Certificate ID:</label>
+        <input type="text" id="certificate_id" name="certificate_id" required><br><br>
+
+        <label for="department_name">Department Name:</label>
+        <input type="text" id="department_name" name="department_name" required><br><br>
+
+        <label for="skill">Skill:</label>
+        <input type="text" id="skill" name="skill" required><br><br>
+
+        <label for="team_rating">Team Rating:</label>
+        <select id="team_rating" name="team_rating">
+            {% for i in "12345" %}
+            <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="image">Upload Image:</label>
+        <input type="file" id="image" name="image"><br><br>
+
+        <label for="c_image">Upload Image:</label>
+        <input type="file" id="c_image" name="c_image"><br><br>
+
+        <button type="submit">Create Employee</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Employee</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="file"] {
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#skillsContainer {
+    margin-bottom: 20px;
+}
+
+#skillsContainer label {
+    display: block;
+    font-weight: bold;
+}
+
+#skillsContainer input[type="text"],
+#skillsContainer select {
+    width: calc(50% - 5px);
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#skillsContainer > div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    font-size: 18px;
+}
+
+.rating > span {
+    display: inline-block;
+    position: relative;
+    width: 1.1em;
+    color: gray;
+}
+
+.rating > span.filled {
+    color: gold;
+}
+
+    </style>
+    <script>
+    function addSkillInput() {
+        var container = document.getElementById("skillsContainer");
+        
+        // Create a new DIV element to hold the input and select
+        var newDiv = document.createElement("div");
+
+        // Create the input element for skill
+        var newInput = document.createElement("input");
+        newInput.setAttribute("type", "text");
+        newInput.setAttribute("name", "skills");
+        newInput.setAttribute("placeholder", "Enter Skill");
+
+        // Create the select element for ratings
+        var newSelect = document.createElement("select");
+        newSelect.setAttribute("name", "ratings");
+        var ratings = [1, 2, 3, 4, 5]; // Ratings options
+        ratings.forEach(function(rating) {
+            var option = document.createElement("option");
+            option.value = rating;
+            option.text = rating + " Star" + (rating > 1 ? "s" : "");
+            newSelect.appendChild(option);
+        });
+
+        // Append input and select to the newDiv
+        newDiv.appendChild(newInput);
+        newDiv.appendChild(newSelect);
+
+        // Append newDiv to the container
+        container.appendChild(newDiv);
+    }
+</script>
+
+</head>
+<body>
+    <h1>Add New Employee</h1>
+    <form method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="image">Upload Image:</label>
+        <input type="file" id="image" name="image" required><br><br>
+        
+        <label for="c_image">Upload Image:</label>
+        <input type="file" id="c_image" name="c_image"><br><br>
+
+        <label for="certificate_id">Certificate ID:</label>
+        <input type="text" id="certificate_id" name="certificate_id" required><br><br>
+
+        <label for="department_name">Department Name:</label>
+        <input type="text" id="department_name" name="department_name" required><br><br>
+
+        <label for="position">Position:</label>
+        <input type="text" id="position" name="position" required><br><br>
+
+        <label for="joining_date">Joining Date:</label>
+        <input type="date" id="joining_date" name="joining_date" required><br><br>
+
+        <label for="leaving_date">Leaving Date:</label>
+        <input type="date" id="leaving_date" name="leaving_date"><br><br>
+
+        <label for="worked_in">Worked In:</label>
+        <textarea id="worked_in" name="worked_in"></textarea><br><br>
+
+        <label for="tl_review">Team Leader Review:</label>
+        <textarea id="tl_review" name="tl_review"></textarea><br><br>
+
+        <label for="dh_review">Department Head Review:</label>
+        <textarea id="dh_review" name="dh_review"></textarea><br><br>
+
+        <label for="feedback">Feedback:</label>
+        <textarea id="feedback" name="feedback"></textarea><br><br>
+
+        <div id="skillsContainer">
+            <label>Skills:</label>
+            <div>
+                <input type="text" name="skills" placeholder="Enter Skill">
+                <select name="ratings">
+                    <option value="1">1 Star</option>
+                    <option value="2">2 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="5">5 Stars</option>
+                </select>
+            </div>
+        </div>
+        <button type="button" onclick="addSkillInput()">Add Another Skill</button><br><br>
+
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>
